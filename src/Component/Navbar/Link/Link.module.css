@@ -1,0 +1,46 @@
+.link{
+    display: flex;
+    gap: 10px;
+}
+.menu{
+    display: none;
+}
+
+@media (max-width:640px) {
+    .link{
+        display: none;
+    }
+    .menu{
+        display: block;
+        cursor: pointer;
+        z-index: 100;
+
+    }
+    .mobileDevice{
+        position: absolute;
+        top: 0; 
+        right: 0;
+        height: calc(60vh - 10px);
+        width: 100%;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        overflow: hidden;
+        animation: slideIn 1.5s ease;
+
+        
+    }
+    @keyframes sildIn {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+        
+    }
+   
+}
