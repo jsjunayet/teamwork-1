@@ -3,33 +3,35 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 
 const Contact = () => {
   return (
-    <div className="">
-      <div className="">
-        <div className="text-white  rounded-xl  space-y-4  mb-10">
-          <h2 className="pb-4 pt-2 text-3xl lg:text-5xl rounded-md bg-gradient-to-tr from-gray-900 to-gray-600 font-medium">
-            Get in Touch
-          </h2>
-          <p className="text-3xl lg:text-5xl font-medium w-5/6">
-            Send us a message for any information
-          </p>
-          <div className=" space-y-1">
-            <div className="flex items-center gap-1">
-              <span className="text-lg">
-                <BsTelephoneFill></BsTelephoneFill>
-              </span>
-              <p>+8801741156408</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-xl">
-                <MdEmail></MdEmail>
-              </span>
-              <p>info@gmail.com</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-xl">
-                <MdLocationOn></MdLocationOn>
-              </span>
-              <p>72, Wall street, King Road, Dhaka</p>
+    <div className="mt-10 ">
+      <div className="grid lg:grid-cols-2 lg:gap-5">
+        <div className="mb-10 bg-gradient-to-tr from-gray-900 to-gray-600 flex justify-center items-center p-9">
+          <div className="text-white space-y-2 lg:space-y-4">
+            <h2 className="text-3xl lg:text-4xl rounded-md font-bold">
+              Get in Touch
+            </h2>
+            <p className="text-xl lg:text-3xl  w-4/6">
+              Send us a message for any information
+            </p>
+            <div className=" space-y-1">
+              <div className="flex items-center gap-1">
+                <span className="text-lg">
+                  <BsTelephoneFill></BsTelephoneFill>
+                </span>
+                <p>+8801741156408</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-xl">
+                  <MdEmail></MdEmail>
+                </span>
+                <p>info@gmail.com</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-xl">
+                  <MdLocationOn></MdLocationOn>
+                </span>
+                <p>72, Wall street, King Road, Dhaka</p>
+              </div>
             </div>
           </div>
         </div>
@@ -58,10 +60,7 @@ const Contact = () => {
               rows="8"
             ></textarea>
             <br />
-            <button
-              type="submit"
-              className=" w-full rounded-md py-2 hover:bg-white font-medium bg-gray-800 hover:text-gray-800 hover:transition"
-            >
+            <button className=" w-full rounded-md py-2 hover:bg-white font-medium bg-gray-800 hover:text-gray-800 hover:transition">
               Submit
             </button>
           </form>
