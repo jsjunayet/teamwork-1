@@ -1,8 +1,9 @@
 "use client"
 import { useState } from "react";
 import NavLink from "../NavLink/Navlink";
-
 import styles from "./Link.module.css"
+import { FaBars } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
 
 const Links = () => {
     const Links = [
@@ -31,7 +32,11 @@ const Links = () => {
                 Links.map((item)=><NavLink item={item} key={item}></NavLink>)
             }
             </div>
-            <button className={styles.menu} onClick={()=>setopen((prev)=>!prev)}>menu</button>
+            <button className={styles.menu} onClick={()=>setopen((prev)=>!prev)}>
+            {
+                open?<RxCross2 />:<FaBars />
+            }
+            </button>
             {
                 open && <div className={styles.mobileDevice}>
                     {
