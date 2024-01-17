@@ -4,6 +4,12 @@
 }
 .menu{
     display: none;
+    cursor: pointer;
+    z-index: 100;
+}
+.mobileDevice{
+    display: none;
+    z-index: -1;
 }
 
 @media (max-width:640px) {
@@ -14,6 +20,8 @@
         display: block;
         cursor: pointer;
         z-index: 100;
+        animation: sildIn 1.5 ease ;
+        font-size: 20px;
 
     }
     .mobileDevice{
@@ -29,9 +37,8 @@
         align-items: center;
         gap: 15px;
         overflow: hidden;
-        animation: slideIn 1.5s ease;
-
-        
+        animation: sildIn 1.5s ease;
+        z-index: -1;
     }
     @keyframes sildIn {
         from {
