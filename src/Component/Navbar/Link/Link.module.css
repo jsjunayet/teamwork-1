@@ -4,8 +4,6 @@
 }
 .menu{
     display: none;
-    cursor: pointer;
-    z-index: 100;
 }
 .mobileDevice{
     display: none;
@@ -20,34 +18,32 @@
         display: block;
         cursor: pointer;
         z-index: 100;
-        animation: sildIn 1.5 ease ;
-        font-size: 20px;
 
     }
     .mobileDevice{
         position: absolute;
         top: 0; 
         right: 0;
-        height: calc(60vh - 10px);
+        height: calc(60vh - 10px); 
         width: 100%;
-        background: #000;
+        background: black;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 15px;
         overflow: hidden;
-        animation: sildIn 1.5s ease;
-        z-index: -1;
+        animation: slideIn 1.5s ease; 
     }
-    @keyframes sildIn {
+    
+    @keyframes slideIn {
         from {
             transform: translateY(-100%);
         }
         to {
             transform: translateY(0);
         }
-        
     }
-   
+    
+    
 }
