@@ -5,15 +5,15 @@ const Contact = () => {
   return (
     <div className="mt-10 ">
       <div className="grid lg:grid-cols-2 lg:gap-5">
-        <div className="mb-10 bg-gradient-to-tr from-gray-900 to-gray-600 flex justify-center items-center p-9">
-          <div className="text-white space-y-2 lg:space-y-4">
+        <div className=" bg-[#00263A] p-9">
+          <div className="text-white space-y-2 lg:space-y-3 ">
             <h2 className="text-3xl lg:text-4xl rounded-md font-bold">
               Get in Touch
             </h2>
             <p className="text-xl lg:text-3xl  w-4/6">
               Send us a message for any information
             </p>
-            <div className=" space-y-1">
+            <div className=" space-y-2 pt-3">
               <div className="flex items-center gap-1">
                 <span className="text-lg">
                   <BsTelephoneFill></BsTelephoneFill>
@@ -59,8 +59,7 @@ const Contact = () => {
               cols="20"
               rows="8"
             ></textarea>
-            <br />
-            <button className=" w-full rounded-md py-2 hover:bg-white font-medium bg-gray-800 hover:text-gray-800 hover:transition">
+            <button className=" w-full rounded-md py-2 hover:bg-white font-medium bg-[#00263A] hover:text-[#00263A] hover:transition">
               Submit
             </button>
           </form>
