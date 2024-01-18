@@ -14,10 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className=''>
+  navbar
+        <div>
           <div className='max-w-6xl mx-auto min-h-screen flex flex-col justify-between'>
+ 
+         
+  master
           <Navbar></Navbar>
-          </div>
+         
           {children}
           <Footer></Footer>
         </div>
