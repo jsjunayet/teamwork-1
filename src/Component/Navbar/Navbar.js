@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import React from 'react';
+
 import Links from './Link/Links';
+import styles from './Navbar.module.css';
 
 const Navbar = () => {
-   
     return (
-        <div className='flex justify-between items-center mt-4 p-4 md:p-0'>
+        
+        <div className={styles.container}>
             <div>
-                <p className='font-bold text-xl z-50'>Logo</p>
+                <p className={styles.logo}>Logo</p>
             </div>
             <div>
                 <Links></Links>
