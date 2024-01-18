@@ -4,5 +4,5 @@ const nextConfig = {
     domains: ["i.ibb.co", "i.postimg.cc"]
 }
 
-
+}
 module.exports = nextConfig
