@@ -23,6 +23,7 @@ const Links = () => {
             path: '/registration',
             title: 'Registration'
         },
+       
     ]
     const [open, setopen]=useState(false)
     return (
