@@ -1,33 +1,32 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Link, NavLink } from "react-router-dom";
+import Link from "next/link";
 
 const Registration = () => {
-
-  const handleRegistration = (event) =>{
+  const handleRegistration = (event) => {
     event.preventDefault();
     const from = event.target;
     const name = from.name.value;
     const email = from.email.value;
     const password = from.password.value;
     const photo = from.photo.value;
-    console.log(name,email,password,photo)
-  }
+    console.log(name, email, password, photo);
+  };
   return (
+  
     <div>
       <div className="shadow-2xl bg-base-200 rounded-lg">
-      <div className="flex justify-center mx-auto">
-            <Image
-              src="https://i.postimg.cc/s2Nhzyd5/signup-removebg-preview.png"
-              className="w-[150px] h-[150px]"
-              width="500"
-              height="500"
-              alt="signup image"
-            ></Image>
-          </div>
+        <div className="flex justify-center mx-auto">
+          <Image
+            src="https://i.postimg.cc/s2Nhzyd5/signup-removebg-preview.png"
+            className="w-[150px] h-[150px]"
+            width="500"
+            height="500"
+            alt="signup image"
+          ></Image>
+        </div>
         <div className="hero">
-
           <div className="hero-content  ">
             <div className=" w-full   ">
               <form onSubmit={handleRegistration} className="card-body">
@@ -92,7 +91,10 @@ const Registration = () => {
                 </div>
                 <label className="label">
                   Already have an account?{" "}
-                  <span className="text-[#205c67] "></span>
+                  <span className="text-[#205c67] ">
+                    {" "}
+                    <Link href="/login">Log In</Link>
+                  </span>
                 </label>
               </form>
             </div>
