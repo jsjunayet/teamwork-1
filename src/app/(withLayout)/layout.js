@@ -4,9 +4,11 @@ import Navbar from "@/Component/Navbar/Navbar";
 const Layout = ({ children }) => {
   return (
     <div>
-      <Navbar />
-      {children}
-      <Footer />
+      <div className="max-w-6xl mx-auto">
+        <Navbar />
+        {children}
+        <Footer />
+      </div>
     </div>
   );
 };
