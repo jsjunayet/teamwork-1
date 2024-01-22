@@ -23,10 +23,15 @@ const Links = () => {
             path: '/registration',
             title: 'Registration'
         },
+        { path:'/createvote',
+         title:'Create Vote'
+
+        },
         {
             path: '/dashboard',
             title: 'Dashboard'
         },
+       
        
     ]
     const [open, setopen]=useState(false)
