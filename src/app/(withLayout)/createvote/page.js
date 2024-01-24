@@ -1,6 +1,6 @@
 "use client";
 const page = () => {
-  const handleCreate = (event) => {
+  const handleCreate = async (event) => {
     event.preventDefault();
     const form = event.target;
     const OrganizatonName = form.OrganizatonName.value;
@@ -8,7 +8,18 @@ const page = () => {
     const email = form.email.value;
     const name = form.name.value;
     const photo = form.photo.value;
+    const createVoteInfo = {OrganizatonName, Type, email, name, photo}
     console.log(OrganizatonName, Type, email, name, photo);
+
+    try {
+      const res = await fetch("https://evs-delta.vercel.app/create-vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(createVoteInfo),
+      });
+    } catch {}
   };
 
   return (

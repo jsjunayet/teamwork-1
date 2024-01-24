@@ -1,12 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Swal from 'sweetalert2'
+
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth";
+import {auth} from '@/app/firebase/config'
+import { useRouter } from "next/navigation";
 
 const Registration = () => {
-  const[Error, seterror] = useState("")
-  const[loading, setloading]=useState(false)
-  const handleRegistration = async(e) => {
+  // firebase
+const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+const [updateProfile] = useUpdateProfile(auth);
+const router = useRouter();
+
+
+  const [Error, seterror] = useState("");
+  const [loading, setloading] = useState(false);
+  const handleRegistration = async (e) => {
     e.preventDefault();
     const from = e.target;
     const name = from.name.value;
@@ -14,32 +25,77 @@ const Registration = () => {
     const password = from.password.value;
     const photo = from.photo.value;
     const date = from.date.value;
-    const idNumber =from.idNumber.value;
-    const user ={name, email, password, photo,date,idNumber}
-    console.log(user)
+    const idNumber = from.idNumber.value;
+    const user = { name, email, photo, date, idNumber };
+    console.log(user);
+
+    //firebase
     try{
-      setloading(true)
-      const res = await fetch("http://localhost:3000/api/signup",{
-          method:"POST",
-          headers:{
-           "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
-         });
-         if(res.ok){
-          seterror(await res.json())
-           from.reset()
-        //  router.push('/login')
-         }
-     }catch(err){
-      console.log(err)
-      setloading(false)
-     }finally{
-      setloading(false)
-     }
+      const res = await createUserWithEmailAndPassword(email, password)
+      if(res){
+        const res2 = await updateProfile(name, photo)
+        console.log('name-photo', res2)
+        console.log({res2})
+        if(res2){
+          router.push('/')
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Login successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          //mongoDB
+          const res = await fetch("https://evs-delta.vercel.app/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+        }
+      }
+      else{
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "There is a Problem!!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      
+    } catch(e){
+      console.error(e)
+    }
+
+
+
+    // try {
+    //   setloading(true);
+    //   const res = await fetch("http://localhost:3000/api/signup", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(user),
+    //   });
+    //   z;
+    //   if (res.ok) {
+    //     seterror(await res.json());
+    //     from.reset();
+    //     //  router.push('/login')
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   setloading(false);
+    // } finally {
+    //   setloading(false);
+    // }
   };
   return (
-  
     <div>
       <div className="my-8 p-6 bg-gray-800 rounded-md shadow-md">
         <div className="flex justify-center mx-auto">
@@ -107,9 +163,9 @@ const Registration = () => {
                         name="photo"
                       />
                     </div>
-                    </div>
-                   <div>
-                   <div className="form-control">
+                  </div>
+                  <div>
+                    <div className="form-control">
                       <label className="label">
                         <span className=" text-white">E-mail</span>
                       </label>
@@ -133,18 +189,16 @@ const Registration = () => {
                         name="date"
                       />
                     </div>
-                   </div>
-                  
+                  </div>
                 </div>
-                {
-                  Error && <p className="">{Error.message}</p>
-                  }
-                
+                {Error && <p className="">{Error.message}</p>}
+
                 <div className="form-control mt-3 w-full ">
-                  <button disabled={loading} className="p-2  button text-white bg-gray-500 shadow-2xl hover:bg-slate-400 rounded-sm">
-                    {
-                      loading?"loading....":"Sign Up"
-                    }
+                  <button
+                    disabled={loading}
+                    className="p-2  button text-white bg-gray-500 shadow-2xl hover:bg-slate-400 rounded-sm"
+                  >
+                    {loading ? "loading...." : "Sign Up"}
                   </button>
                 </div>
                 <label className="label">
