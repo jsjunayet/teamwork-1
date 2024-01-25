@@ -1,7 +1,7 @@
 const page = () => {
     return(
         <>
-             <h1> Dash</h1>
+             <h1>All Voter</h1>
         </>
     )}
 export default page;
