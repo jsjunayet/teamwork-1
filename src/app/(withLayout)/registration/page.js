@@ -2,21 +2,16 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Swal from 'sweetalert2'
-
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth";
-import {auth} from '@/app/firebase/config'
+import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import useAuth from "@/app/hook/useAuth";
 
 const Registration = () => {
-  // firebase
-const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
-const [updateProfile] = useUpdateProfile(auth);
-const router = useRouter();
-
-
-  const [Error, seterror] = useState("");
+  const { createUser, updateUserProfile } = useAuth();
+  const router = useRouter();
+  const [Error, seterror] = useState();
   const [loading, setloading] = useState(false);
+
   const handleRegistration = async (e) => {
     e.preventDefault();
     const from = e.target;
@@ -29,49 +24,122 @@ const router = useRouter();
     const user = { name, email, photo, date, idNumber };
     console.log(user);
 
-    //firebase
-    try{
-      const res = await createUserWithEmailAndPassword(email, password)
-      if(res){
-        const res2 = await updateProfile(name, photo)
-        console.log('name-photo', res2)
-        console.log({res2})
-        if(res2){
-          router.push('/')
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Login successfully",
-            showConfirmButton: false,
-            timer: 1500
-          });
-
-          //mongoDB
-          const res = await fetch("https://evs-delta.vercel.app/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
+    if (password.length < 6) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password should be 6 characters or more",
+        showConfirmButton: false,
+        timer: 2000,
       });
+      return;
+    }
 
-        }
-      }
-      else{
+    if (!/[A-Z]/.test(password)) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password should have at least one capital letter",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+
+    if (!/[!@#$%^&*()_+{}[\]:;<>,/.?~\\]/.test(password)) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password should have at least one special character",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+
+    createUser(email, password)
+      .then(() => {
+        updateUserProfile(name, photo)
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Login successfully",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            window.location.reload();
+
+            fetch("https://evs-delta.vercel.app/users", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(user),
+            });
+
+            
+          })
+          .catch((error) => {
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: `${error.code}`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          });
+          router.push("/");
+      })
+      .catch((error) => {
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "There is a Problem!!",
+          title: `${error.code}`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
-      }
-      
-    } catch(e){
-      console.error(e)
-    }
+      });
 
+    //firebase
+    // try {
+    //   const res = await createUser(email, password);
+    //   if (res) {
+    //     const res2 = await updateUserProfile(name, photo);
+    //     console.log("name-photo", res2);
+    //     console.log({ res2 });
+    //     if (res2) {
 
+    //       Swal.fire({
+    //         position: "top-end",
+    //         icon: "success",
+    //         title: "Login successfully",
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //       });
+
+    //       //mongoDB
+    //       const res = await fetch("https://evs-delta.vercel.app/users", {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(user),
+    //       });
+    //       router.push("/");
+    //     }
+    //   } else {
+    //     Swal.fire({
+    //       position: "top-end",
+    //       icon: "error",
+    //       title: "There is a Problem!!",
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
+    //   }
+    // } catch (e) {
+    //   console.error(e);
+    // }
 
     // try {
     //   setloading(true);
@@ -202,10 +270,9 @@ const router = useRouter();
                   </button>
                 </div>
                 <label className="label">
-                  Already have an account?{" "}
-                  <span className="text-white ">
-                    {" "}
-                    <Link href="/login">Log In</Link>
+                  Already have an account?
+                  <span className="text-white underline">
+                    <Link href="/login">Login Now</Link>
                   </span>
                 </label>
               </form>

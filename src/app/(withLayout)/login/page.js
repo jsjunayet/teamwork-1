@@ -50,7 +50,6 @@ const page = () => {
         }
     }catch(e){
         console.error(e)
-        router.push('/login')
     }
   };
 
@@ -99,9 +98,9 @@ const page = () => {
             </div>
 
             <label className="label">
-              New member?{" "}
-              <span className="text-[#205c67]">
-                <Link href="/registration">Register</Link>
+            Do not have account?
+              <span className=" underline">
+                <Link href="/registration">Register Now</Link>
               </span>
             </label>
           </form>

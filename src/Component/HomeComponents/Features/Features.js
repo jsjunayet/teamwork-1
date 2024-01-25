@@ -4,7 +4,6 @@ import React from "react";
 import { GiVote } from "react-icons/gi";
 import { MdAddBox } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
-import LogOut from "@/Component/LogOut/LogOut";
 
 const Features = () => {
   return (
@@ -14,7 +13,6 @@ const Features = () => {
      <h1 className="text-3xl lg:text-5xl font-bold lg:font-semibold mb-7 lg:pl-0 pl-9">
         Access Our Services
       </h1>
-      <LogOut />
      </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
