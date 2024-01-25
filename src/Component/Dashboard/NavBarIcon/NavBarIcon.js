@@ -8,25 +8,29 @@ const NavBarIcon = () => {
 
   const Links = [
     {
+      path: "/dashboard/createCandidate",
+      title: "Create Candidate",
+    },
+    {
+      path: "/dashboard/Candidate",
+      title: "Candidate",
+    },
+    {
+      path: "/dashboard/allVoter",
+      title: "All Voter",
+    },
+    {
+      path: "/dashboard/LivePreview",
+      title: "Live Preview",
+    },
+    {
+      path: "/dashboard/profile",
+      title: "Profile",
+    },
+    {
       path: "/",
       title: "Home",
-    },
-    {
-      path: "/about",
-      title: "About",
-    },
-    {
-      path: "/service",
-      title: "Service",
-    },
-    {
-      path: "/registration",
-      title: "Registration",
-    },
-    {
-      path: "/dashboard",
-      title: "Dashboard",
-    },
+    }
   ];
 
   const [open, setopen] = useState(false);

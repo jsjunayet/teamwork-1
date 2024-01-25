@@ -2,6 +2,7 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -9,7 +10,7 @@ export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
 
-const Authprovider = ({ children }) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
@@ -43,29 +44,28 @@ const Authprovider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unsebscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser); 
-
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser);
+    
             const userEmail = currentUser?.email || user?.email;
             const loggedUser = { email: userEmail };
+    
+            const axiosConfig = { withCredentials: true };
+    
             if (currentUser) {
-                axiosPublic.post('/jwt', loggedUser, { withCredentials: true })
-                    .then(() => {
-                        setLoading(false);
-                    })
-            }
-            else {
-                axiosPublic.post('/logout', loggedUser, { withCredentials: true })
-                    .then(() => {
-                        setLoading(false);
-                    })
+                axios.post('/jwt', loggedUser, axiosConfig)
+                    .then(() => setLoading(false))
+                    .catch(error => console.error("JWT Error:", error));
+            } else {
+                axios.post('/logout', loggedUser, axiosConfig)
+                    .then(() => setLoading(false))
+                    .catch(error => console.error("Logout Error:", error));
             }
         });
-        return () => {
-            return unsebscribe();
-        }
-    }, [axiosPublic, user?.email])
-
+    
+        return () => unSubscribe();
+    }, [user]);
+    
 
     const authInfo = {
         user,
@@ -84,4 +84,4 @@ const Authprovider = ({ children }) => {
     );
 };
 
-export default Authprovider;
+export default AuthProvider;
