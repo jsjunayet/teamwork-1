@@ -1,8 +1,10 @@
 "use client";
 import { TfiAlert } from "react-icons/tfi";
+import Swal from 'sweetalert2'
+
 const page = () => {
 
-    const handleCreateCandidate = (event) =>{
+    const handleCreateCandidate = async (event) =>{
         event.preventDefault();
         const form = event.target;
         const candidateName = form.candidateName.value;
@@ -14,6 +16,33 @@ const page = () => {
         const date = form.date.value;
         const candidate = {candidateName,candidateID,candidatePhoto,userID,candidateEmail,check,date}
        console.log(candidate)
+
+       const res = await fetch("https://evs-delta.vercel.app/candidate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(candidate),
+      })
+      if(res.status === 200){
+        console.log(res)
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Candidate added successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }else{
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Candidate not edded",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+
     }
 
   return (
