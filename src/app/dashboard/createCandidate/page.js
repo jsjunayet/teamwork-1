@@ -13,8 +13,8 @@ const page = () => {
         const userID = form.userID.value;
         const candidateEmail = form.candidateEmail.value;
         const check = form.check.value;
-        const date = form.date.value;
-        const candidate = {candidateName,candidateID,candidatePhoto,userID,candidateEmail,check,date}
+        const brand= form.brand.value;
+        const candidate = {candidateName,candidateID,candidatePhoto,userID,candidateEmail,check,brand}
        console.log(candidate)
 
        const res = await fetch("https://evs-delta.vercel.app/candidate", {
@@ -66,7 +66,7 @@ const page = () => {
                           <input
                             type="text"
                             placeholder="Candidate Name"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                             required
                             name="candidateName"
                           />
@@ -78,7 +78,7 @@ const page = () => {
                           <input
                             type="text"
                             placeholder="Candidate ID Number"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                             required
                             name="candidateID"
                           />
@@ -92,7 +92,7 @@ const page = () => {
                           <input
                             type="text"
                             placeholder="Candidate Photo"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                             required
                             name="candidatePhoto"
                           />
@@ -106,7 +106,7 @@ const page = () => {
                           <input
                             type="text"
                             placeholder="Your ID Number"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                             required
                             name="userID"
                           />
@@ -120,22 +120,25 @@ const page = () => {
                           <input
                             type="email"
                             placeholder="Candidate E-mail"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                             required
                             name="candidateEmail"
                           />
                         </div>
                         <div className="form-control">
                           <label className="label">
-                            <span className=" text-white">Date</span>
+                            <span className=" text-white">Select Brand</span>
                           </label>
-                          <input
-                            type="date"
-                            placeholder="Photo"
-                            className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
-                            required
-                            name="date"
-                          />
+                         <select  className="w-full px-4 h-[48px]  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500" name="brand" id="">
+                          <option value="Dream Warrior">Dream Warrior</option>
+                          <option value="Hexa Inovet">Hexa Inovet</option>
+                          <option value=""></option>
+                          <option value=""></option>
+                          <option value=""></option>
+                          <option value=""></option>
+                          <option value=""></option>
+                          <option value=""></option>
+                         </select>
                         </div>
                       </div>
                       <label className="label">
