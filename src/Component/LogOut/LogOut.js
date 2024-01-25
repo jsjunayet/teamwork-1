@@ -4,8 +4,8 @@ import { signOut } from "firebase/auth";
 
 
 const LogOut = () => {
-//   const [user] = useAuthState(auth);
-//   console.log({user});
+  // const [user] = useAuthState(auth);
+  // console.log({user});
 
   return (
     <div>
