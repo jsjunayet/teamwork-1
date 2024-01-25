@@ -1,5 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
+import { auth } from "@/app/firebase/config";
+import { useRouter } from "next/navigation";
+import {useAuthState} from 'react-firebase-hooks/auth';
+
 const page = () => {
+  const router = useRouter();
+  const [user] = useAuthState(auth);
+  console.log({user});
+  if(!user){
+    router.push('/login')
+  }
+
   const handleCreate = async (event) => {
     event.preventDefault();
     const form = event.target;

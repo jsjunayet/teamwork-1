@@ -9,11 +9,14 @@ import Swal from 'sweetalert2'
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import {useAuthState} from 'react-firebase-hooks/auth';
 
 const page = () => {
     //firebase
     const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
     const router = useRouter();
+    const [user] =useAuthState(auth);
+    console.log({user})
 
   const handleLogin = async (event) => {
     event.preventDefault();
