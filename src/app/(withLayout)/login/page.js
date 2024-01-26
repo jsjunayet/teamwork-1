@@ -98,7 +98,7 @@ const page = () => {
                   type="checkbox"
                   checked={showPass ? "checked" : ""}
                   readOnly
-                  className="checkbox checkbox-sm checkbox-primary"
+                  className="checkbox checkbox-xs checkbox-primary"
                 />
                 <span className="label-text text-sm">Show Password</span>
               </div>
