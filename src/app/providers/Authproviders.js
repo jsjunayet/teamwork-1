@@ -52,15 +52,6 @@ const AuthProvider = ({ children }) => {
     
             const axiosConfig = { withCredentials: true };
     
-            if (currentUser) {
-                axios.post('/jwt', loggedUser, axiosConfig)
-                    .then(() => setLoading(false))
-                    .catch(error => console.error("JWT Error:", error));
-            } else {
-                axios.post('/logout', loggedUser, axiosConfig)
-                    .then(() => setLoading(false))
-                    .catch(error => console.error("Logout Error:", error));
-            }
         });
     
         return () => unSubscribe();

@@ -3,6 +3,7 @@
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 import {useAuthState} from 'react-firebase-hooks/auth';
+import Swal from "sweetalert2";
 
 const page = () => {
   const router = useRouter();
@@ -31,6 +32,25 @@ const page = () => {
         },
         body: JSON.stringify(createVoteInfo),
       });
+      if(res?.status === 200){
+        console.log(res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Create Vote added",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        router.push('/dashboard')
+      }else{
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "There is a problem",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
     } catch {}
   };
 
