@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div>
-        <p className={styles.logo}>Logo</p>
+        <p className={styles.logo}>EVS</p>
       </div>
       <div className="lg:flex lg:gap-2 lg:items-center">
         <Links></Links>
