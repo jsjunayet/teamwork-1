@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Swal from 'sweetalert2'
@@ -16,6 +16,7 @@ const page = () => {
     const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
     const router = useRouter();
     const [user] =useAuthState(auth);
+    const [showPass, setShowPass] = useState(false)
     console.log({user})
 
   const handleLogin = async (event) => {
@@ -68,13 +69,13 @@ const page = () => {
         <div className="w-6/12 flex justify-center mx-auto ">
           <form onSubmit={handleLogin} className="card-body ">
             <div className="form-control">
-              <label className="">
+            <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="Enter Your E-mail"
-                className="w-full px-4 py-2  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                 required
                 name="email"
               />
@@ -84,13 +85,23 @@ const page = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPass ? "text" : "password"}
                 placeholder="password"
-                className="w-full px-4 py-2 mb-4 bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
                 required
                 name="password"
               />
             </div>
+            <div className="flex justify-start items-center gap-2 mt-2 mb-4">
+                <input
+                  onClick={() => setShowPass(!showPass)}
+                  type="checkbox"
+                  checked={showPass ? "checked" : ""}
+                  readOnly
+                  className="checkbox checkbox-sm checkbox-primary"
+                />
+                <span className="label-text text-sm">Show Password</span>
+              </div>
             <div className="form-control">
               <button className="p-2 text-white bg-gray-500 shadow-2xl hover:bg-slate-400 rounded-sm">
                 Login
