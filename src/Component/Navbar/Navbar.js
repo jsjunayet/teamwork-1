@@ -1,9 +1,9 @@
 "use client";
 import useAuth from "@/app/hook/useAuth";
+import Link from "next/link";
 import Links from "./Link/Links";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
-
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -22,22 +22,30 @@ const Navbar = () => {
       <div className="lg:flex lg:gap-2 lg:items-center">
         <Links></Links>
         {user && (
-          <div className="hidden text-right lg:flex gap-3 items-center">
-            <button
-              onClick={handleLogOut}
-              className="py-2 px-3 lg:pl-4 text-base hover:text-red-400"
+          <div className="dropdown dropdown-end ml-2">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                {user && <Image width={20} height={20} alt="Profile Image" src={user?.photoURL} />}
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content z-[100] p-4 shadow bg-white text-black rounded-box w-40 mt-4"
             >
-              Log out
-            </button>
-            <div className="">
-              <p className="text-[14px]">{user?.displayName}</p>
-              <p className="text-[12px]">{user?.email}</p>
-            </div>
+              <div className="text-center">
+                {user && <p className="mb-3">{user?.displayName}</p>}
+                {user && (
+                  <li>
+                    {" "}
+                    <Link href="/dashboard">Dashboard</Link>
+                  </li>
+                )}
 
-            {/* <Image className="rounded-full border-4 border-white"
-              src={user?.photoURL}
-              alt="Avatar" width={45} height={45}/> */}
-              
+                <li>
+                  <button onClick={handleLogOut}>Log Out</button>
+                </li>
+              </div>
+            </ul>
           </div>
         )}
       </div>
