@@ -31,20 +31,17 @@ const Links = () => {
                 path: '/createvote',
                 title: 'Create Vote'
             },
-            {
-                id: 6,
-                path: '/dashboard',
-                title: 'Dashboard'
-            }
+            
         ] : [
             {
-                id: 7,
+                id: 6,
                 path: '/login',
                 title: 'Log In'
             }
         ])
     ];
     const [open, setopen]=useState(false)
+
     return (
         <div>
             <div className={styles.link}>
