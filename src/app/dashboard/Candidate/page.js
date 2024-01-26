@@ -11,17 +11,6 @@ const Page = () => {
       .then((res) => res.json())
       .then((data) => setCandidates(data));
   }, []);
-
-  return (
-    <div>
-     {candidates?.map((candidate) => (
-        <CandidateCart key={candidate._id} candidate={candidate}></CandidateCart>
-=======
-import Image from "next/image";
-const page = async () => {
-  const res = await fetch("https://evs-delta.vercel.app/candidate");
-  const candidates = await res.json();
-  // console.log(candidates.langth);
   return (
     <div>
       <p>All Candidates: {candidates.length}</p>
