@@ -1,3 +1,22 @@
+
+"use client";
+import { useEffect, useState } from "react";
+import CandidateCart from "./CandidateCart";
+
+const Page = () => {
+  const [candidates, setCandidates] = useState([]);
+
+  useEffect(() => {
+    fetch("https://evs-delta.vercel.app/candidate")
+      .then((res) => res.json())
+      .then((data) => setCandidates(data));
+  }, []);
+
+  return (
+    <div>
+     {candidates?.map((candidate) => (
+        <CandidateCart key={candidate._id} candidate={candidate}></CandidateCart>
+=======
 import Image from "next/image";
 const page = async () => {
   const res = await fetch("https://evs-delta.vercel.app/candidate");
@@ -63,8 +82,9 @@ const page = async () => {
           </div>
         </div>
       ))}
+       
     </div>
   );
 };
 
-export default page;
+export default Page;
