@@ -1,14 +1,14 @@
+import { auth } from "@/app/firebase/config";
+import { signOut } from "firebase/auth";
 import Link from "next/link";
-import { MdOutlineLogout, MdOutlineMoreHoriz, MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
-import { IoPersonAdd } from "react-icons/io5";
-import { IoMdHome } from "react-icons/io";
-import { BsPersonCircle} from "react-icons/bs";
-import { SiSecurityscorecard } from "react-icons/si";
-import { MdPeople } from "react-icons/md";
+import { BsPersonCircle } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
+import { IoMdHome } from "react-icons/io";
+import { IoPersonAdd } from "react-icons/io5";
+import { MdOutlineLogout, MdOutlineMoreHoriz, MdOutlineSettings, MdPeople } from "react-icons/md";
+import { SiSecurityscorecard } from "react-icons/si";
+
 const SideNav = ({ children }) => {
-
-
   return (
     <div>
      <div className="flex flex-col justify-start items-center">
@@ -80,14 +80,14 @@ const SideNav = ({ children }) => {
           </div>
 
           {/* logout  */}
-          <div className="my-4 border-b border-gray-100 pb-4 w-full">
+          <Link href='/' className="my-4 border-b border-gray-100 pb-4 w-full" onClick={() => signOut(auth)}>
             <div className="flex mb-2 justify-start items-center gap-4 px-5 border border-gray-200 hover:bg-gray-900 p-2 rounded-md group cursor-pointer shadow-lg m-auto">
               <MdOutlineLogout className="text-2xl text-gray-600 group-hover:text-white" />
               <h3 className="text-base text-gray-800 group-hover:text-white font-semibold">
                 Logout
               </h3>
             </div>
-          </div>
+          </Link>
         </div>
     </div>
   );
