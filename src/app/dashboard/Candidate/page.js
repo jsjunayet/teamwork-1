@@ -2,7 +2,7 @@ import Image from "next/image";
 const page = async () => {
   const res = await fetch("https://evs-delta.vercel.app/candidate");
   const candidates = await res.json();
-  console.log(candidates);
+  // console.log(candidates.langth);
   return (
     <div>
       <p>All Candidates: {candidates.length}</p>
@@ -35,20 +35,20 @@ const page = async () => {
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
+                        {/* image issue */}
+                        {/* <div className="mask mask-squircle w-12 h-12">
                           <Image
                             src={candidate.candidatePhoto}
                             width={500}
                             height={500}
                             alt="candidate image"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <div>
                         <div className="font-bold">
                           {candidate.candidateName}
                         </div>
-                        
                       </div>
                     </div>
                   </td>
