@@ -36,7 +36,6 @@ const Navbar = () => {
                 {user && <p className="mb-3">{user?.displayName}</p>}
                 {user && (
                   <li>
-                    {" "}
                     <Link href="/dashboard">Dashboard</Link>
                   </li>
                 )}
