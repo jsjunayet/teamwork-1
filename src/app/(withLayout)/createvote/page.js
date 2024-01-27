@@ -8,10 +8,10 @@ import Swal from "sweetalert2";
 const page = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  console.log({user});
-  if(!user){
-    router.push('/login')
-  }
+  // console.log({user});
+  // if(!user){
+  //   router.push('/login')
+  // }
 
   const handleCreate = async (event) => {
     event.preventDefault();

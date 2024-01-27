@@ -1,4 +1,5 @@
 "use client";
+import { UploadImage } from "@/Component/shareComponent/UploadImage";
 import { TfiAlert } from "react-icons/tfi";
 import Swal from 'sweetalert2'
 
@@ -9,41 +10,20 @@ const page = () => {
         const form = event.target;
         const candidateName = form.candidateName.value;
         const candidateID = form.candidateID.value;
-        const candidatePhoto = form.candidatePhoto.value;
+        const candidatePhoto = form.candidatePhoto.files[0];
         const userID = form.userID.value;
         const candidateEmail = form.candidateEmail.value;
         const check = form.check.value;
         const brand= form.brand.value;
         const candidate = {candidateName,candidateID,candidatePhoto,userID,candidateEmail,check,brand}
        console.log(candidate)
-
-       const res = await fetch("https://evs-delta.vercel.app/candidate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(candidate),
-      })
-      if(res.status === 200){
-        console.log(res)
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Candidate added successfully",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }else{
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Candidate not edded",
-          showConfirmButton: false,
-          timer: 1500
-        });
+       try {
+        const data = await UploadImage(candidatePhoto);
+        console.log(data);
+      } catch (error) {
+        console.error("Error handling candidate:", error);
       }
-
-    }
+    };
 
   return (
     <div>
@@ -89,13 +69,7 @@ const page = () => {
                           <label className="label">
                             <span className=" text-white">Upload Photo</span>
                           </label>
-                          <input
-                            type="text"
-                            placeholder="Candidate Photo"
-                            className="w-full px-4 py-3  bg-gray-700 text-white rounded-md focus:outline-none focus:border-indigo-500"
-                            required
-                            name="candidatePhoto"
-                          />
+                          <input required name="candidatePhoto" type="file" className="file-input file-input-bordered w-full max-w-xs bg-gray-700" />
                         </div>
                         <div className="form-control">
                           <label className="label">

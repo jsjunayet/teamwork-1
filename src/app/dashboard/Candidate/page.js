@@ -1,7 +1,7 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import CandidateCart from "./CandidateCart";
+import { MdDeleteForever } from "react-icons/md";
 
 const Page = () => {
   const [candidates, setCandidates] = useState([]);
@@ -11,67 +11,53 @@ const Page = () => {
       .then((res) => res.json())
       .then((data) => setCandidates(data));
   }, []);
+
   return (
-    <div>
-      <p>All Candidates: {candidates.length}</p>
-      {candidates.map((candidate) => (
-        <div key={candidate.id}>
-          <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <th>Candidate</th>
-                  <th>ID Card NUmber</th>
-                  <th>Brand</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        {/* image issue */}
-                        {/* <div className="mask mask-squircle w-12 h-12">
-                          <Image
-                            src={candidate.candidatePhoto}
-                            width={500}
-                            height={500}
-                            alt="candidate image"
-                          />
-                        </div> */}
-                      </div>
-                      <div>
-                        <div className="font-bold">
-                          {candidate.candidateName}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{candidate.candidateID}</td>
-                  <td>{candidate.brand}</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">Information</button>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ))}
-       
+    <div className="overflow-x-auto">
+      <table className="table text-white">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <p className="text-white">Number</p>
+              </label>
+            </th>
+            <th className=" text-white">Candidate</th>
+            <th className="text-white">ID Card Number</th>
+            <th className="text-white">Brand</th>
+            <th className="text-white">Profile</th>
+            <th className="text-white">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* map candidates to rows */}
+          {candidates.map((candidate, index) => (
+            <tr key={candidate.id}>
+              <th>
+                <label>
+                  <p className="text-white">{index + 1}</p>
+                </label>
+              </th>
+              <td>
+                <div className="flex items-center gap-3">
+                  <div className="avatar"></div>
+                  <div>
+                    <div className="font-bold">{candidate.candidateName}</div>
+                  </div>
+                </div>
+              </td>
+              <td>{candidate.candidateID}</td>
+              <td>{candidate.brand}</td>
+              
+              <td>
+                <button className="btn btn-ghost btn-xs text-white">Information</button>
+              </td>
+              <td className="text-3xl cursor-pointer"><MdDeleteForever /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
