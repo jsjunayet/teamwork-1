@@ -1,29 +1,80 @@
 "use client";
 import { UploadImage } from "@/Component/shareComponent/UploadImage";
+import { useState } from "react";
 import { TfiAlert } from "react-icons/tfi";
 import Swal from 'sweetalert2'
 
-const page = () => {
-
+const CreateCandidate = () => {
+  const [loading,setloading]= useState(false)
     const handleCreateCandidate = async (event) =>{
         event.preventDefault();
         const form = event.target;
         const candidateName = form.candidateName.value;
         const candidateID = form.candidateID.value;
-        const candidatePhoto = form.candidatePhoto.files[0];
+        const image = form.candidatePhoto.files[0];
         const userID = form.userID.value;
         const candidateEmail = form.candidateEmail.value;
         const check = form.check.value;
         const brand= form.brand.value;
-        const candidate = {candidateName,candidateID,candidatePhoto,userID,candidateEmail,check,brand}
-       console.log(candidate)
-       try {
-        const data = await UploadImage(candidatePhoto);
-        console.log(data);
-      } catch (error) {
-        console.error("Error handling candidate:", error);
+      try{
+      setloading(true)
+        const data = await UploadImage(image)
+        const candidatePhoto = data.data.display_url
+        const candidate = {candidateName,candidateID, candidatePhoto,userID,candidateEmail,check,brand}
+        const res = await fetch("http://localhost:5000/candidate", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(candidate),
+       })
+       if(res.status === 400){
+         console.log(res)
+         Swal.fire({
+           position: "top-end",
+           icon: "error",
+           title: "Candidate Information is wrong",
+           showConfirmButton: false,
+           timer: 1500
+         });
+         setloading(false)
+         form.reset()
+       }
+       if(res.status === 200){
+         console.log(res)
+         Swal.fire({
+           position: "top-end",
+           icon: "success",
+           title: "Candidate added successfully",
+           showConfirmButton: false,
+           timer: 1500
+         });
+         setloading(false)
+         form.reset()
+       }
+       else{
+        setloading(false)
+         Swal.fire({
+           position: "top-end",
+           icon: "error",
+           title: "Candidate Information is wrong",
+           showConfirmButton: false,
+           timer: 1500
+         });
+       }
+ 
       }
-    };
+      catch (err){
+        setloading(false)
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
 
   return (
     <div>
@@ -125,8 +176,10 @@ const page = () => {
                     </div>
 
                     <div className="form-control mt-3 w-full ">
-                      <button className="p-2  button text-white bg-gray-500 shadow-2xl hover:bg-slate-400 rounded-sm">
-                        Create
+                      <button disabled={loading} className="p-2  button text-white bg-gray-500 shadow-2xl hover:bg-slate-400 rounded-sm">
+                        {
+                          loading?"Loading...":"Create"
+                        }
                       </button>
                     </div>
                   </form>
@@ -151,4 +204,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CreateCandidate;

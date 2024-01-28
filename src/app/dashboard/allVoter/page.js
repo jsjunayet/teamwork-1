@@ -1,21 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import AllVoter from "./AllVoter";
 import { MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const Page = () => {
   const [voters, setVoters] = useState([]);
 
   useEffect(() => {
-    fetch("https://evs-delta.vercel.app/users")
+    fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => setVoters(data));
   }, []);
- console.log(voters)
  const handledeleted =(id)=>{
   Swal.fire({
     title: "Are you sure?",
@@ -27,20 +26,28 @@ const Page = () => {
     confirmButtonText: "Yes, Deleted it!"
 }).then(async (result) => {
     if (result.isConfirmed) {
-        const res = await fetch(`http://localhost:5000/users/${id}`,{method:"DELETE"})
-        // if (res.data.modifiedCount > 0) {
-        //     Swal.fire({
-        //         title: "fire!",
-        //         text: `this voter has been deleted.`,
-        //         icon: "success"
-        //     });
-        // }
-        console.log(res)
+        const res =await axios.delete(`http://localhost:5000/users/${id}`)
+        if (res.data.deletedCount > 0) {
+          setVoters((prevotes)=>prevotes.filter((votes)=>votes._id!==id))
+            Swal.fire({
+                title: "fire!",
+                text: `this voter has been deleted.`,
+                icon: "success"
+            });
+        }
     }
 });
  }
   return (
-    <div className="overflow-x-auto">
+   <div>
+   <p className="font-bold text-center text-2xl text-white">
+  Total Voters: {voters.length}
+</p>
+<hr className="w-52 mx-auto h-2 mb-3 mt-1 bg-gradient-to-r from-blue-500 to-green-500"></hr>
+
+  
+
+     <div className="overflow-x-auto">
     <table className="table text-white">
       {/* head */}
       <thead>
@@ -93,6 +100,7 @@ const Page = () => {
       </tbody>
     </table>
   </div>
+   </div>
   );
 };
 
